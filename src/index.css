@@ -1,10 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+    font-size: 15px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: lightskyblue;
+  background-image: url('../public/assets/images/clouds.png');
 }
 
 code {
@@ -12,9 +21,35 @@ code {
     monospace;
 }
 
-.center {
-  height: 100%;
-  border: 3px solid black;
-  display: block;
-  transform: translateY(100%);
+.container {
+  width: 1000px;
+  position: relative;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.vertical-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.search-text {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+#video-bg {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  transition: .2s ease-in-out;
 }
