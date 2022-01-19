@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { usePromiseTracker, trackPromise } from 'react-promise-tracker';
+import Loading from './LoadingComponent';
+import Error from './ErrorComponent';
 import { Container, Row, Col, Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
 
 // export function fetchWeather(location) {
@@ -22,10 +25,11 @@ import { Container, Row, Col, Card, CardImg, CardText, CardBody, CardTitle, Card
 function Weather({ location }) {
 
     const [data, setData] = useState({});
+    const { promiseInProgress } = usePromiseTracker();
     const navigate = useNavigate();
 
     useEffect(() => {
-        const key = "45ee0388848fe31389ddda5caa15726b";
+        const key = process.env.REACT_APP_API_KEY;
         let url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${key}`;
         fetch(url)
         .then(res => {
@@ -45,17 +49,13 @@ function Weather({ location }) {
     // const icon = data.weather[0].icon;
     // const main = data.main;
 
-    if (!data) {
-        return navigate('/');
-    } else {
-        return (
-            // <Card>
-            //     <CardImg src={`http://openweathermap.org/img/wn/${data.weather[0].icon}.png`} />
-            //     <CardTitle>Right now in {data.name}</CardTitle>
-            // </Card>
-            <h1>Right now in {name}</h1>
-        )
-    }
+    return (
+        <Container className='vertical-center'>
+            <Row>
+                <h1>Right now in {name}...</h1>
+            </Row>
+        </Container>
+    )
 }
     
 
