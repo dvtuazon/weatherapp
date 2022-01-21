@@ -1,62 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { usePromiseTracker, trackPromise } from 'react-promise-tracker';
 import Loading from './LoadingComponent';
 import Error from './ErrorComponent';
-import { Container, Row, Col, Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
-
-// export function fetchWeather(location) {
-    
-//     const key = "45ee0388848fe31389ddda5caa15726b";
-//     let url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${key}`;
-
-//     fetch(url)
-//     .then(res => {
-//         if (!res.ok) throw new Error(res.statusText);
-//         return res.json();
-//     })
-//     .then(data => {
-//         console.log(data.name);
-//         console.log(data);
-//     })
-//     .catch(err => console.log(err))
-// }
+import { Container, Row } from 'reactstrap';
 
 function Weather({ location }) {
 
     const [data, setData] = useState({});
-    const { promiseInProgress } = usePromiseTracker();
-    const navigate = useNavigate();
+    const [name, setName] = useState('');
+    const [temp, setTemp] = useState('');
+    const [icon, setIcon] = useState('');
 
     useEffect(() => {
         const key = process.env.REACT_APP_API_KEY;
-        let url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${key}`;
-        fetch(url)
-        .then(res => {
-            if (!res.ok) throw new Error(res.statusText);
-            return res.json();
-        })
-        .then(data => {
-            console.log(data.name);
-            console.log(data);
-            setData(data);
-        })
-        .catch(err => console.log(err))
+        let url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=${key}`;
+        const fetchWeather = () => {
+            return fetch(url)
+            .then(res => {
+                if (!res.ok) throw new Error(res.statusText);
+                return res.json();
+            })
+            .then(data => {
+                console.log(data.name);
+                console.log(data);
+                // setData(data);
+                setName(data.name);
+                setTemp(data.main.temp);
+                setIcon(data.weather[0].icon);
+            })
+            .catch(err => console.log(err))
+        }
+        fetchWeather();
     }, [])
-    
-    const name = data.name;
-    // const weather = data.weather[0];
-    // const icon = data.weather[0].icon;
-    // const main = data.main;
 
-    return (
-        <Container className='vertical-center'>
-            <Row>
-                <h1>Right now in {name}...</h1>
-            </Row>
-        </Container>
-    )
+    if (data != "undefined") {
+        return (
+            <Container className='vertical-center'>
+                <Row>
+                    <h1>Right now in {name}...</h1>
+                </Row>
+                <Row>
+                    <h1>Temperature: {temp} F&deg;</h1>
+                </Row>
+            </Container>
+        )
+    } else return <h1>undefined</h1>
 }
-    
 
 export default Weather;

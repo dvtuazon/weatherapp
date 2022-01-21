@@ -7,7 +7,7 @@ function Error() {
     return(
         <Container>
             <Row>
-                <h1>Error! This page does not exist!</h1>
+                <h1>Page Not Found</h1>
             </Row>
         </Container>
     )

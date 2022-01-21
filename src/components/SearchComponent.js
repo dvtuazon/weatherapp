@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import fetchWeather from './WeatherComponent';
+import Weather from './WeatherComponent';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Form, Input, Label } from 'reactstrap';
 
-function Search({ setLocation }) {
-    const [locationName, setLocationName] = useState('');
+function Search({ setLocation, setIsLoading }) {
+    const [search, setSearch] = useState('');
     const navigate = useNavigate();
     const handleSubmit = e => {
         e.preventDefault();
-        if (!locationName || locationName === '') return;
-        setLocation(locationName);
+        if (!search || search === '') return;
+        setLocation(search);
         navigate('/weather');
     }
     return (
@@ -19,7 +19,7 @@ function Search({ setLocation }) {
                     <Row className='justify-content-center'>
                         <Col xs={5} sm={8} lg={6}>
                             <Label for='search' className='d-block text-center my-3 search-text'>Weather Search</Label>
-                            <Input type='text' name='search' id='search' placeholder='Enter location' value={locationName} onChange={e => setLocationName(e.target.value)} />
+                            <Input type='text' name='search' id='search' placeholder='Enter location' value={search} onChange={e => setSearch(e.target.value)} />
                         </Col>
                     </Row>
                     <Row className='my-4 justify-content-center'>
