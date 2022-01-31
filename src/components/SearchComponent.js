@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import Weather from './WeatherComponent';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Form, Input, Label } from 'reactstrap';
 
-function Search({ setLocation, setIsLoading }) {
-    const [search, setSearch] = useState('');
+function Search({ search, setSearch, setLocation }) {
     const navigate = useNavigate();
     const handleSubmit = e => {
         e.preventDefault();
@@ -13,8 +11,8 @@ function Search({ setLocation, setIsLoading }) {
         navigate('/weather');
     }
     return (
-        <div id='video-bg'>
-            <Container className='vertical-center'>
+        <>
+            <Container className='container-search vertical-center'>
                 <Form onSubmit={e => { handleSubmit(e) }}>
                     <Row className='justify-content-center'>
                         <Col xs={5} sm={8} lg={6}>
@@ -29,7 +27,7 @@ function Search({ setLocation, setIsLoading }) {
                     </Row>
                 </Form>
             </Container>
-        </div>
+        </>
     )
 }
 
