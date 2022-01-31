@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import moment from 'moment-timezone';
+import moment from 'moment';
 import { Container, Row, Image, Spinner } from 'react-bootstrap';
 
 function Weather({ search, setSearch, location }) {
